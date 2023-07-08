@@ -1,13 +1,24 @@
-# EXAMPLE MODULE
+# Ghezibde custom tags
 
-This example shows how to create and use custom tags.
+A module that adds subtags to some existing custom tags in [webtrees 2.1.16](https://github.com/fisharebest/webtrees)
 
-All the functions are optional - edit the ones you need, and
-delete those that you do not need.
+For _FNRL (Funeral) custom tag, added subtags are :
+* DATE (Date Value)
+* PLAC (Place Name)
+* NOTE (Note Structure)
+* OBJE (Xref Media)
+* SOUR (Xref Source)
+* RESN (Restriction Notice)
 
-For example, the functions regarding versions, author, support,
-etc. are only relevant for modules that you intend to share publicly.
+Here is an [example of funeral](https://www.ghezibde.net/genealogie/tree/vanderlynden.ged/individual/X168336/)  on ghezibde web site.
 
-For sub-tags, the codes `0:1`, `1:M`, etc. show the minimum
-and maximum number of occurrences.  When setting sub-tags, you
-can use `0:0` to remove an existing sub-tag.
+For _MILT (Military service) custom tag, added subtags are :
+* DATE (Date Value)
+* PLAC (Place Name)
+* NOTE (Note Structure)
+* OBJE (Xref Media)
+* SOUR (Xref Source)
+* RESN (Restriction Notice)
+
+Here is an [example of military service](https://www.ghezibde.net/genealogie/tree/vanderlynden.ged/individual/I88724/)  on ghezibde web site.
+

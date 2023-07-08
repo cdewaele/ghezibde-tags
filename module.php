@@ -1,14 +1,15 @@
 <?php
 
 /**
- * Example module.
+ * Custom tags webtrees module for https://www.ghezibde.net/genealogie/
+ * Based on webtrees/example-module-custom-tags 
  */
 
 declare(strict_types=1);
 
-namespace ExampleNamespace;
+namespace Ghezibde;
 
-require __DIR__ . '/ExampleModuleCustomTags.php';
+require __DIR__ . '/GhezibdeTags.php';
 
 // This script must return an object that implements ModuleCustomInterface.
 // If the module's constructor does not take any parameters, you can simply instantiate it.
@@ -17,4 +18,4 @@ require __DIR__ . '/ExampleModuleCustomTags.php';
 // return Webtrees::make(ExampleModule::class);
 // For an example, see the server-config module.
 
-return new ExampleModuleCustomTags();
+return new GhezibdeTags();

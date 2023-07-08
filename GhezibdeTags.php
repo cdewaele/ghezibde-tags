@@ -1,19 +1,20 @@
 <?php
 
 /**
- * Example module.
+ * module adding subtags to _FNRL and _MILT custom tags.
  */
 
 declare(strict_types=1);
 
-namespace ExampleNamespace;
+namespace Ghezibde;
 
-use Fisharebest\Webtrees\Elements\AddressWebPage;
-use Fisharebest\Webtrees\Elements\CustomElement;
+use Fisharebest\Webtrees\Elements\DateValue;
 use Fisharebest\Webtrees\Elements\EmptyElement;
-use Fisharebest\Webtrees\Elements\NameOfRepository;
-use Fisharebest\Webtrees\Elements\SourceDescriptiveTitle;
-use Fisharebest\Webtrees\Elements\SubmitterText;
+use Fisharebest\Webtrees\Elements\NoteStructure;
+use Fisharebest\Webtrees\Elements\PlaceName;
+use Fisharebest\Webtrees\Elements\RestrictionNotice;
+use Fisharebest\Webtrees\Elements\XrefMedia;
+use Fisharebest\Webtrees\Elements\XrefSource;
 use Fisharebest\Webtrees\I18N;
 use Fisharebest\Webtrees\Module\AbstractModule;
 use Fisharebest\Webtrees\Module\ModuleCustomInterface;
@@ -21,76 +22,60 @@ use Fisharebest\Webtrees\Module\ModuleCustomTrait;
 use Fisharebest\Webtrees\Registry;
 
 /**
- * Class ExampleModuleCustomTags
- *
- * This example shows how to create a custom module.
- * All the functions are optional.  Just implement the ones you need.
- *
- * Modules *must* implement ModuleCustomInterface.  They *may* also implement other interfaces.
+ * Class GhezibdeTags
  */
-class ExampleModuleCustomTags extends AbstractModule implements ModuleCustomInterface
+class GhezibdeTags extends AbstractModule implements ModuleCustomInterface
 {
     // For every module interface that is implemented, the corresponding trait *should* also use be used.
     use ModuleCustomTrait;
 
     /**
-     * How should this module be identified in the control panel, etc.?
+     * This module is named 'Ghezibde Custom tags' in the control panel 
      *
-     * @return string
      */
     public function title(): string
     {
-        return I18N::translate('Custom tags');
+        return I18N::translate('Ghezibde Custom tags');
     }
 
     /**
      * A sentence describing what this module does.
-     *
-     * @return string
      */
     public function description(): string
     {
-        return I18N::translate('This module provides some custom tags');
+        return I18N::translate('This module provides Ghezibde custom tags');
     }
 
     /**
-     * The person or organisation who created this module.
-     *
-     * @return string
+     * The person who created this module.
      */
     public function customModuleAuthorName(): string
     {
-        return 'Greg Roach';
+        return 'Christophe Dewaele';
     }
 
     /**
      * The version of this module.
-     *
-     * @return string
      */
     public function customModuleVersion(): string
     {
-        return '1.0.0';
+        return '2.1.16.1.0';
     }
 
     /**
      * A URL that will provide the latest version of this module.
-     *
-     * @return string
      */
     public function customModuleLatestVersionUrl(): string
     {
-        return 'https://github.com/webtrees/example-module-custom-tags/raw/main/latest-version.txt';
+        return 'https://github.com/cdewaele/ghezibde-tags/raw/main/latest-version.txt';
     }
 
     /**
-     * Where to get support for this module.  Perhaps a github repository?
-     *
-     * @return string
+     * github repository for this module
      */
     public function customModuleSupportUrl(): string
     {
-        return 'https://github.com/webtrees/example-module-custom-tags';
+        return 'https://github.com/cdewaele/ghezibde-tags';
     }
 
     /**
@@ -106,7 +91,7 @@ class ExampleModuleCustomTags extends AbstractModule implements ModuleCustomInte
             case 'fr':
             case 'fr-CA':
                 return [
-                    'Mother tongue' => 'Langue maternelle',
+                    'This module provides Ghezibde custom tags' => 'Ce module fournit des tags personnalisés pour Ghezibde',
                 ];
 
             default:
@@ -130,16 +115,24 @@ class ExampleModuleCustomTags extends AbstractModule implements ModuleCustomInte
     protected function customTags(): array
     {
         return [
-            'FAM:DATA'       => new EmptyElement(I18N::translate('Data'), ['TEXT' => '0:1']),
-            'FAM:TEXT'       => new SubmitterText(I18N::translate('Text')),
-            'INDI:COMM'      => new CustomElement(I18N::translate('Comment'), ['URL' => '0:1']),
-            'INDI:COMM:URL'  => new AddressWebPage(I18N::translate('URL')),
-            'INDI:DATA'      => new EmptyElement(I18N::translate('Data'), ['TEXT' => '0:1']),
-            'INDI:DATA:TEXT' => new SubmitterText(I18N::translate('Text')),
-            'INDI:_MTNG'     => new CustomElement(I18N::translate('Mother tongue')),
-            'SOUR:AUTH:NOTE' => new SubmitterText(I18N::translate('Note')),
-            'REPO:NAME:_HEB' => new NameOfRepository(I18N::translate('Hebrew name')),
-            'SOUR:TITL:_HEB' => new SourceDescriptiveTitle(I18N::translate('Hebrew title')),
+            'INDI:_FNRL'     => new EmptyElement(I18N::translate('Funeral'), 
+                    ['DATE' => '0:1', 'PLAC' => '0:1', 'NOTE' => '0:M', 
+                        'OBJE' => '0:M', 'SOUR' => '0:M', 'RESN' => '0:1']),
+            'INDI:_FNRL:DATE' => new DateValue(I18N::translate('Date')),
+            'INDI:_FNRL:PLAC' => new PlaceName(I18N::translate('Place')),
+            'INDI:_FNRL:NOTE' => new NoteStructure(I18N::translate('Note')),
+            'INDI:_FNRL:OBJE' => new XrefMedia(I18N::translate('Media object')),
+            'INDI:_FNRL:SOUR' => new XrefSource(I18N::translate('Source')),
+            'INDI:_FNRL:RESN' => new RestrictionNotice(I18N::translate('Restriction')),
+            'INDI:_MILT' => new EmptyElement(I18N::translate('Military service'), 
+                    ['DATE' => '0:1', 'PLAC' => '0:1', 'NOTE' => '0:M', 
+                        'OBJE' => '0:M', 'SOUR' => '0:M', 'RESN' => '0:1']),
+            'INDI:_MILT:DATE' => new DateValue(I18N::translate('Date')),
+            'INDI:_MILT:PLAC' => new PlaceName(I18N::translate('Place')),
+            'INDI:_MILT:NOTE' => new NoteStructure(I18N::translate('Note')),
+            'INDI:_MILT:OBJE' => new XrefMedia(I18N::translate('Media object')),
+            'INDI:_MILT:SOUR' => new XrefSource(I18N::translate('Source')),
+            'INDI:_MILT:RESN' => new RestrictionNotice(I18N::translate('Restriction')),
         ];
     }
 
@@ -149,10 +142,19 @@ class ExampleModuleCustomTags extends AbstractModule implements ModuleCustomInte
     protected function customSubTags(): array
     {
         return [
-            'FAM'       => [['DATA', '0:M']],
-            'INDI'      => [['_MTNG', '0:1'], ['COMM', '0:M'], ['DATA', '0:M']],
-            'REPO:NAME' => [['_HEB', '0:1']],
-            'SOUR:TITL' => [['_HEB', '0:1']],
+            'INDI'      => [['_FNRL', '0:1'], ['_MILT', '0:1']],
+            '_FNRL:DATE'      => [['DATE', '0:1']],
+            '_FNRL:PLAC'      => [['PLAC', '0:1']],
+            '_FNRL:NOTE'      => [['NOTE', '0:M']],
+            '_FNRL:OBJE'      => [['OBJE', '0:M']],
+            '_FNRL:SOUR'      => [['SOUR', '0:M']],
+            '_FNRL:RESN'      => [['RESN', '0:1']],
+            '_MILT:DATE'      => [['DATE', '0:1']],
+            '_MILT:PLAC'      => [['PLAC', '0:1']],
+            '_MILT:NOTE'      => [['NOTE', '0:M']],
+            '_MILT:OBJE'      => [['OBJE', '0:M']],
+            '_MILT:SOUR'      => [['SOUR', '0:M']],
+            '_MILT:RESN'      => [['RESN', '0:1']],
         ];
     }
 }
